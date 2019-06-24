@@ -9,21 +9,21 @@ export const handleError = (res, errorMessage, status = 400) => {
   });
 };
 
-export const encrypt = async (password, saltRounds, res) => {
-  try {
-    const hash = await bcrypt.hash(password, saltRounds);
-    return hash;
-  } catch (error) {
-    handleError(res, error.message, 500);
-    return null;
-  }
-};
-
-export const handleResponse = (res, status = 200, data) => {
+export const handleResponse = (res, data, status = 200) => {
   res.status(status).json({
     status: 'success',
     data,
   });
+};
+
+export const encrypt = async (password, saltRounds) => {
+  const hash = await bcrypt.hash(password, saltRounds);
+  return hash;
+};
+
+export const decrypt = async (password, dbPassword) => {
+  const result = await bcrypt.compare(password, dbPassword);
+  return result;
 };
 
 export const getToken = (payload, expiresIn = '1d') => {
