@@ -1,7 +1,8 @@
-import dotenv from 'dotenv';
 import { Client } from 'pg';
+import env from 'dotenv';
 
-dotenv.config();
+env.config();
+
 let client;
 const connectDb = () => {
   let connectionString;
