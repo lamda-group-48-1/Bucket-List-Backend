@@ -3,14 +3,12 @@ import {
   encrypt, handleError, handleResponse, getToken,
 } from '../utilities';
 
-export const signUp = async (req, res) => {
-  const {
-    firstName, email, password,
-  } = req.formatted;
+const signUp = async (req, res) => {
+  const { firstName, email, password } = req.formatted;
 
   const saltRounds = 10;
   try {
-    const hash = await encrypt(password, saltRounds, res);
+    const hash = await encrypt(password, saltRounds);
 
     if (hash) {
       const values = [firstName, email, hash];
@@ -25,7 +23,7 @@ export const signUp = async (req, res) => {
         },
       ];
 
-      handleResponse(res, 201, data);
+      handleResponse(res, data, 201);
     }
   } catch (error) {
     const errorMessage = `SERVER ERROR: ${error.message}`;
