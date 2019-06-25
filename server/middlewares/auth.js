@@ -1,5 +1,7 @@
 import Joi from '@hapi/joi';
-import { handleError, toLowerCaseAndTrim, decrypt } from '../utilities';
+import {
+  handleError, toLowerCaseAndTrim, decryptPassword, getPayload,
+} from '../utilities';
 import { checkUserExist } from '../utilities/db';
 
 export const signup = async (req, res, next) => {
@@ -68,7 +70,7 @@ export const login = async (req, res, next) => {
     try {
       const [user] = await checkUserExist(email);
       if (user) {
-        const response = await decrypt(password, user.password);
+        const response = await decryptPassword(password, user.password);
         if (response) {
           req.user = user;
           next();
@@ -87,4 +89,24 @@ export const login = async (req, res, next) => {
   }
 };
 
-export default signup;
+export const authenticate = async (req, res, next) => {
+  const token = req.headers.authorization;
+  if (!token) {
+    const errorMessage = 'Authorization token required';
+    handleError(res, errorMessage, 401);
+  } else {
+    try {
+      const { payload } = await getPayload(token);
+
+      if (!payload) {
+        throw Error;
+      }
+
+      req.userId = payload;
+      next();
+    } catch (error) {
+      const errorMessage = 'Invalid authorization token';
+      handleError(res, errorMessage, 401);
+    }
+  }
+};

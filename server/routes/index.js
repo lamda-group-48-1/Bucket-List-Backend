@@ -1,8 +1,10 @@
 import express from 'express';
 import auth from './auth';
+import bucketlist from './bucketlist';
 
 const router = express.Router();
 router.use('/api/v1/auth', auth);
+router.use('/api/v1/bucketlist', bucketlist);
 
 
 router.get('/', (req, res) => {

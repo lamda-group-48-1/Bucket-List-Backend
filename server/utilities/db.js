@@ -34,3 +34,13 @@ export const checkUserExist = async (email) => {
   const result = await client.query(query);
   return result.rows;
 };
+
+export const addList = async (values) => {
+  const query = {
+    text:
+      'INSERT INTO bucket_list(user_id, title, description, status) VALUES($1, $2, $3, $4) RETURNING *',
+    values: [...values, false],
+  };
+  const result = await client.query(query);
+  return result.rows;
+};

@@ -1,6 +1,6 @@
 import { addUser } from '../utilities/db';
 import {
-  encrypt, handleError, handleResponse, getToken,
+  encryptPassword, handleError, handleResponse, createToken,
 } from '../utilities';
 
 const signUp = async (req, res) => {
@@ -8,7 +8,7 @@ const signUp = async (req, res) => {
 
   const saltRounds = 10;
   try {
-    const hash = await encrypt(password, saltRounds);
+    const hash = await encryptPassword(password, saltRounds);
 
     if (hash) {
       const values = [firstName, email, hash];
@@ -16,7 +16,7 @@ const signUp = async (req, res) => {
       const rows = await addUser(values);
 
       const { id } = rows[0];
-      const token = getToken(id, '1s');
+      const token = createToken(id);
       const data = [
         {
           token,
