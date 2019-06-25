@@ -7,6 +7,7 @@
   "migrate": "babel-node  server/database/schema.js --exit",
   "clean": "rm -rf build ",
   "build": "npm run clean && babel server/ --out-dir server/build --exit",
+  "deploy-heroku": "npm run build && babel-node server/build/app.js",
   "start": "nodemon --exec babel-node server/app.js",
   "test": "echo \"Error: no test specified\" && exit 1",
   "lint": "eslint '**/*js'",
