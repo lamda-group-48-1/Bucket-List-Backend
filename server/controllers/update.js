@@ -13,7 +13,7 @@ const updateBucketList = async (req, res) => {
     ];
     const rows = await updateList(values);
     if (rows.length) {
-      handleResponse(res, rows, 201);
+      handleResponse(res, rows, 200);
     } else {
       const errorMessage = 'Bucketlist not found';
       handleError(res, errorMessage, 404);

@@ -56,3 +56,13 @@ export const updateList = async (values) => {
   const result = await client.query(query);
   return result.rows;
 };
+
+export const getLists = async (values) => {
+  const query = {
+    text:
+      'SELECT * FROM bucket_list WHERE user_id=$1',
+    values,
+  };
+  const result = await client.query(query);
+  return result.rows;
+};
