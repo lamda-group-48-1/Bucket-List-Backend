@@ -1,20 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-export const handleError = (res, errorMessage, status = 400) => {
-  const error = errorMessage.replace(/"/g, "'");
-  res.status(status).json({
-    status: 'failed',
-    message: error,
-  });
-};
-
-export const handleResponse = (res, data, status = 200) => {
-  res.status(status).json({
-    status: 'success',
-    data,
-  });
-};
 
 export const encryptPassword = async (password, saltRounds) => {
   const hash = await bcrypt.hash(password, saltRounds);

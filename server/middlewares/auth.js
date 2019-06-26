@@ -1,7 +1,8 @@
 import Joi from '@hapi/joi';
 import {
-  handleError, toLowerCaseAndTrim, decryptPassword, getPayload,
+  toLowerCaseAndTrim, decryptPassword, getPayload,
 } from '../utilities';
+import { handleError } from '../utilities/response';
 import { checkUserExist } from '../utilities/db';
 
 export const signup = async (req, res, next) => {

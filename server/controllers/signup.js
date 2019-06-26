@@ -1,7 +1,8 @@
 import { addUser } from '../utilities/db';
 import {
-  encryptPassword, handleError, handleResponse, createToken,
+  encryptPassword, createToken,
 } from '../utilities';
+import { handleError, handleResponse } from '../utilities/response';
 
 const signUp = async (req, res) => {
   const { firstName, email, password } = req.formatted;
