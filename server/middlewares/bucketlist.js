@@ -36,4 +36,18 @@ export const validateUpdateList = async (req, res, next) => {
   return next();
 };
 
+export const validateGetList = async (req, res, next) => {
+  const schema = Joi.object().keys({
+    id: Joi.number().required(),
+  });
+
+  const { error } = Joi.validate(req.params, schema);
+
+  if (error) {
+    const errorMessage = error.details[0].message;
+    return handleError(res, errorMessage, 400);
+  }
+  return next();
+};
+
 export default validateCreateList;
