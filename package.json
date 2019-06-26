@@ -9,7 +9,7 @@
   "build": "npm run clean && babel server/ --out-dir server/build --exit",
   "deploy-heroku": "npm run build && babel-node server/build/app.js",
   "start": "nodemon --exec babel-node server/app.js",
-  "test": "echo \"Error: no test specified\" && exit 1",
+  "test": "NODE_ENV=test mocha tests/index.test.js --require @babel/register --exit",
   "lint": "eslint '**/*js'",
   "lint:fix": "prettier-eslint --write '**/*js' "
  },
@@ -38,6 +38,11 @@
   "validatorjs": "^3.15.1"
  },
  "devDependencies": {
+  "@babel/plugin-transform-runtime": "^7.4.4",
+  "@babel/preset-env": "^7.4.5",
+  "@babel/register": "^7.4.4",
+  "babel-plugin-istanbul": "^5.1.4",
+  "babel-plugin-module-resolver": "^3.2.0",
   "chai": "^4.2.0",
   "chai-http": "^4.3.0",
   "coveralls": "^3.0.3",
