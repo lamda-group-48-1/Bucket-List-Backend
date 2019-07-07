@@ -72,3 +72,13 @@ export const getLists = async (values, id) => {
   const result = await client.query(query);
   return result.rows;
 };
+
+export const deleteList = async (values) => {
+  const query = {
+    text:
+      'DELETE FROM bucket_list WHERE user_id=$1 AND id=$2 RETURNING *',
+    values,
+  };
+  const result = await client.query(query);
+  return result.rows;
+};

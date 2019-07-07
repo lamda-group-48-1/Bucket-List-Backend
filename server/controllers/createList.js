@@ -1,5 +1,5 @@
 import { addList } from '../utilities/db';
-import { handleError, handleResponse } from '../utilities';
+import { handleError, handleResponse } from '../utilities/response';
 
 const signUp = async (req, res) => {
   const { title, description } = req.body;

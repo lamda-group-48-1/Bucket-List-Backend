@@ -1,5 +1,5 @@
 import { getLists } from '../utilities/db';
-import { handleError, handleResponse } from '../utilities';
+import { handleError, handleResponse, handle404 } from '../utilities/response';
 
 export const getBucketLists = async (req, res) => {
   try {
@@ -18,8 +18,7 @@ export const getBucketList = async (req, res) => {
     if (rows.length) {
       handleResponse(res, rows, 200);
     } else {
-      const errorMessage = 'Bucketlist not found';
-      handleError(res, errorMessage, 404);
+      handle404(res);
     }
   } catch (error) {
     const errorMessage = `SERVER ERROR: ${error.message}`;

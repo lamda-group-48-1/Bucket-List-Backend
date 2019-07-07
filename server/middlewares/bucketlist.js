@@ -1,5 +1,5 @@
 import Joi from '@hapi/joi';
-import { handleError } from '../utilities';
+import { handleError } from '../utilities/response';
 
 export const validateCreateList = async (req, res, next) => {
   const schema = Joi.object().keys({
@@ -36,7 +36,7 @@ export const validateUpdateList = async (req, res, next) => {
   return next();
 };
 
-export const validateGetList = async (req, res, next) => {
+export const validateParamsId = async (req, res, next) => {
   const schema = Joi.object().keys({
     id: Joi.number().required(),
   });
